@@ -2,7 +2,6 @@
 authors = ["Norbert Pozar <bertapozar@gmail.com>"]
 description = "A simple math expression parser and evaluator."
 documentation = "https://docs.rs/meval"
-homepage = "https://github.com/rekka/meval-rs"
 keywords = ["math", "parser", "expression", "formula", "evaluator"]
 license = "Unlicense/MIT"
 name = "meval"

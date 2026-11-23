@@ -1,5 +1,5 @@
 // Why the heck does factorial take a float?
-// This is to take advantage of the fact that std::f64::MAX >>> std::u64::MAX
+// This is to take advantage of the fact that f64::MAX >>> u64::MAX
 fn factorial_unsafe(num: f64) -> f64 {
     if num == 0. || num == 1. {
         1.
@@ -12,7 +12,7 @@ pub fn factorial(num: f64) -> Result<f64, &'static str> {
     if num.fract() != 0. || num < 0. {
         Err("Number must be non-negative with no fractional component!")
     } else if num > 170. {
-        Ok(std::f64::INFINITY)
+        Ok(f64::INFINITY)
     } else {
         Ok(factorial_unsafe(num))
     }
@@ -29,7 +29,7 @@ mod tests {
         assert_eq!(factorial(2.), Ok(2.));
         assert_eq!(factorial(3.), Ok(6.));
         assert_eq!(factorial(170.), Ok(7.257415615307994e306));
-        assert_eq!(factorial(171.), Ok(std::f64::INFINITY));
+        assert_eq!(factorial(171.), Ok(f64::INFINITY));
 
         match factorial(1.1) {
             Err(_) => {}

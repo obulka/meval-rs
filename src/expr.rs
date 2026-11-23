@@ -580,12 +580,12 @@ impl std::error::Error for FuncEvalError {
 
 #[doc(hidden)]
 pub fn max_array(xs: &[f64]) -> f64 {
-    xs.iter().fold(::std::f64::NEG_INFINITY, |m, &x| m.max(x))
+    xs.iter().fold(f64::NEG_INFINITY, |m, &x| m.max(x))
 }
 
 #[doc(hidden)]
 pub fn min_array(xs: &[f64]) -> f64 {
-    xs.iter().fold(::std::f64::INFINITY, |m, &x| m.min(x))
+    xs.iter().fold(f64::INFINITY, |m, &x| m.min(x))
 }
 
 /// Returns the built-in constants and functions in a form that can be used as a `ContextProvider`.
@@ -945,10 +945,10 @@ impl<'a> ContextProvider for Context<'a> {
 #[cfg(feature = "serde")]
 pub mod de {
     use super::Expr;
+    use crate::tokenizer::Token;
     use serde;
     use std::fmt;
     use std::str::FromStr;
-    use crate::tokenizer::Token;
 
     impl<'de> serde::Deserialize<'de> for Expr {
         fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
@@ -1069,7 +1069,7 @@ mod tests {
         assert_eq!(eval_str("2 + (3 + 4)"), Ok(9.));
         assert_eq!(eval_str("-2^(4 - 3) * (3 + 4)"), Ok(-14.));
         assert_eq!(eval_str("-2*3! + 1"), Ok(-11.));
-        assert_eq!(eval_str("-171!"), Ok(std::f64::NEG_INFINITY));
+        assert_eq!(eval_str("-171!"), Ok(f64::NEG_INFINITY));
         assert_eq!(eval_str("150!/148!"), Ok(22350.));
         assert_eq!(eval_str("a + 3"), Err(Error::UnknownVariable("a".into())));
         assert_eq!(eval_str("round(sin (pi) * cos(0))"), Ok(0.));

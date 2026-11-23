@@ -18,8 +18,6 @@ fn main() {
     }
 
     let mut fg = Figure::new();
-    fg.clear_axes();
-
     {
         let axes = fg.axes2d();
 
@@ -47,5 +45,13 @@ fn main() {
             );
         }
     }
-    fg.show();
+
+    match fg.show() {
+        Ok(mut close_sentinel) => {
+            if let Ok(exit_status) = close_sentinel.wait() {
+                println!("exited with status: {:?}", exit_status);
+            }
+        }
+        Err(error) => println!("{:?}", error),
+    }
 }

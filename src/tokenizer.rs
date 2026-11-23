@@ -8,6 +8,7 @@
 
 use crate::nom::Parser;
 use nom::{
+    Err, IResult,
     branch::alt,
     bytes::complete::is_a,
     bytes::complete::tag,
@@ -16,7 +17,6 @@ use nom::{
     error::ErrorKind,
     number::complete::double,
     sequence::{delimited, preceded, terminated},
-    Err, IResult,
 };
 
 use std::fmt;
@@ -182,7 +182,8 @@ fn ident<'a>(i: &'a str) -> IResult<&'a str, &'a str, (&'a str, ErrorKind)> {
             // Parses the longest slice consisting of the given characters
             opt(is_a(remaining_chars)),
         ),
-    ).parse(i)
+    )
+    .parse(i)
 }
 
 fn var<'a>(i: &'a str) -> IResult<&'a str, Token, (&'a str, ErrorKind)> {
@@ -195,7 +196,8 @@ fn func<'a>(i: &'a str) -> IResult<&'a str, Token, (&'a str, ErrorKind)> {
         //recognize(
         terminated(complete(ident), preceded(multispace0, complete(tag("(")))), //)
         |s: &str| Token::Func(s.into(), None),
-    ).parse(i)
+    )
+    .parse(i)
 }
 
 fn number<'a>(i: &'a str) -> IResult<&'a str, Token, (&'a str, ErrorKind)> {
@@ -207,7 +209,8 @@ fn lexpr<'a>(i: &'a str) -> IResult<&'a str, Token, (&'a str, ErrorKind)> {
         multispace0,
         alt((number, func, var, negpos, lparen)),
         multispace0,
-    ).parse(i)
+    )
+    .parse(i)
 }
 
 fn after_rexpr<'a>(i: &'a str) -> IResult<&'a str, Token, (&'a str, ErrorKind)> {

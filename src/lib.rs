@@ -183,8 +183,8 @@
 //! [dyon]: https://crates.io/crates/dyon
 //! [gluon]: https://crates.io/crates/gluon
 
-extern crate nom;
 extern crate fnv;
+extern crate nom;
 #[cfg(feature = "serde")]
 extern crate serde;
 #[cfg_attr(all(test, feature = "serde"), macro_use)]

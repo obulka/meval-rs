@@ -3,12 +3,12 @@
 extern crate meval;
 extern crate test;
 
-use meval::max_array;
-use meval::min_array;
 use meval::Context;
 use meval::ContextProvider;
 use meval::Expr;
 use meval::FuncEvalError;
+use meval::max_array;
+use meval::min_array;
 use std::f64::consts;
 use test::Bencher;
 
